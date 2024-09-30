@@ -3,7 +3,7 @@ TARGET = testbench
 %GHDL_SIM_FLAGS= --stop-time=100ns
 %GHDL_SIM_FLAGS=
 
-VHDL_SRC      = xor_v1.vhd xor_v2.vhd xor_v3.vhd
+VHDL_SRC      = xor_v2.vhd
 TESTBENCH_SRC = $(TARGET).vhd
 WAVEFORMS     = $(TARGET).ghw
 GTKWAVE_CFG   = $(TARGET).gtkw
@@ -25,6 +25,9 @@ notrace: $(TARGET)
 
 trace: $(TARGET)
 	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=100ns --vcd=$@.vcd
+
+keynote:
+	highlight -O rtf $(VHDL_SRC) --style=github | pbcopy
 
 clean:
 	rm -rf $(TARGET) $(WAVEFORMS) work-obj08.cf trace.vcd

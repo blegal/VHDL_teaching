@@ -3,7 +3,7 @@ TARGET = testbench
 %GHDL_SIM_FLAGS= --stop-time=100ns
 %GHDL_SIM_FLAGS=
 
-VHDL_SRC      = xor_gate_split.vhd
+VHDL_SRC      = xor_v3.vhd
 TESTBENCH_SRC = $(TARGET).vhd
 WAVEFORMS     = $(TARGET).ghw
 GTKWAVE_CFG   = $(TARGET).gtkw
@@ -31,3 +31,4 @@ keynote:
 
 clean:
 	rm -rf $(TARGET) $(WAVEFORMS) work-obj08.cf trace.vcd
+

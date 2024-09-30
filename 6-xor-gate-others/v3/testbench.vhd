@@ -10,7 +10,7 @@ end;
 
 architecture bench of testbench is
 
-  component xor_gate_vector
+  component xor_v3
   PORT (
     A : IN  std_logic_vector(3 downto 0);
     B : IN  std_logic_vector(3 downto 0);
@@ -43,9 +43,9 @@ architecture bench of testbench is
 
 begin
 
-  uut: xor_gate_vector port map ( A => A,
-                                  B => B,
-                                  C => C );
+  uut: xor_v3 port map ( A => A,
+                         B => B,
+                         C => C );
 
   stimulus: process
   begin
