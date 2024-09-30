@@ -29,6 +29,9 @@ trace: $(TARGET)
 keynote:
 	highlight -O rtf $(VHDL_SRC) --style=github | pbcopy
 
+scansion: trace
+	/Applications/Scansion.app/Contents/MacOS/Scansion ./trace.vcd
+
 clean:
 	rm -rf $(TARGET) $(WAVEFORMS) work-obj08.cf trace.vcd
 
