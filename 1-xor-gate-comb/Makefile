@@ -29,6 +29,9 @@ trace: $(TARGET)
 keynote:
 	highlight -O rtf $(VHDL_SRC) --style=github | pbcopy
 
+gtkwave: trace
+	gtkwave ./trace.vcd
+
 scansion: trace
 	/Applications/Scansion.app/Contents/MacOS/Scansion ./trace.vcd
 
