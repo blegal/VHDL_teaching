@@ -3,7 +3,7 @@ TARGET = testbench
 %GHDL_SIM_FLAGS= --stop-time=100ns
 %GHDL_SIM_FLAGS=
 
-VHDL_SRC      = fir_pipeline.vhd
+VHDL_SRC      = counter.vhd
 TESTBENCH_SRC = $(TARGET).vhd
 WAVEFORMS     = $(TARGET).ghw
 GTKWAVE_CFG   = $(TARGET).gtkw
@@ -21,16 +21,13 @@ $(TARGET): analysis
 	ghdl -e --std=08 -frelaxed $@
 
 notrace: $(TARGET)
-	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=1000ns
+	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=300ns
 
 trace: $(TARGET)
-	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=1000ns --vcd=$@.vcd
+	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=300ns --vcd=$@.vcd
 
 keynote:
 	highlight -O rtf $(VHDL_SRC) --style=github | pbcopy
-
-gtkwave: trace
-	gtkwave ./trace.vcd
 
 scansion: trace
 	/Applications/Scansion.app/Contents/MacOS/Scansion ./trace.vcd
