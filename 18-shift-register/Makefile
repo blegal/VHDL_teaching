@@ -3,7 +3,7 @@ TARGET = testbench
 %GHDL_SIM_FLAGS= --stop-time=100ns
 %GHDL_SIM_FLAGS=
 
-VHDL_SRC      = reg_sync.vhd
+VHDL_SRC      = shift_register.vhd
 TESTBENCH_SRC = $(TARGET).vhd
 WAVEFORMS     = $(TARGET).ghw
 GTKWAVE_CFG   = $(TARGET).gtkw
@@ -21,10 +21,10 @@ $(TARGET): analysis
 	ghdl -e --std=08 -frelaxed $@
 
 notrace: $(TARGET)
-	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=100ns
+	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=400ns
 
 trace: $(TARGET)
-	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=100ns --vcd=$@.vcd
+	ghdl -r --std=08 -frelaxed $^ $(GHDL_SIM_FLAGS) --ieee-asserts=disable --max-stack-alloc=0 --stop-time=400ns --vcd=$@.vcd
 
 keynote:
 	highlight -O rtf $(VHDL_SRC) --style=github | pbcopy

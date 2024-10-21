@@ -19,18 +19,14 @@ BEGIN
 
 	PROCESS( clock )
 	BEGIN
-----	IF rising_edge( clock ) THEN
-		IF clock'event and clock = '1' THEN
+		IF rising_edge( clock ) THEN
 			IF reset = '1' THEN
-				REPORT "ICI...";
 				mem <= (OTHERS => '0');
           	ELSIF load = '1' THEN
-			  REPORT "LA...";
 			  mem <= e;
           	END IF;
 	   	END IF;
 	END PROCESS;
 
 	s <= mem;
-
 END;

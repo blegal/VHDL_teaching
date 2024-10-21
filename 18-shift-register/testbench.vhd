@@ -6,31 +6,25 @@ END testbench;
 
 ARCHITECTURE comportement OF testbench IS
 
-	COMPONENT reg_sync IS
+	COMPONENT shift_register IS
 	PORT ( 
 		clock : IN  STD_LOGIC;
 		reset : IN  STD_LOGIC;
-		e     : IN  STD_LOGIC;
-		s     : OUT STD_LOGIC
+		load  : IN  STD_LOGIC;
+		e     : IN  STD_LOGIC_VECTOR(3 DOWNTO 0);
+		s     : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
 	);
 	END COMPONENT;
 
  	SIGNAL clock  : STD_LOGIC;
  	SIGNAL reset  : STD_LOGIC;
- 	SIGNAL e      : STD_LOGIC;
- 	SIGNAL t1     : STD_LOGIC;
- 	SIGNAL t2     : STD_LOGIC;
- 	SIGNAL t3     : STD_LOGIC;
- 	SIGNAL t4     : STD_LOGIC;
- 	SIGNAL s      : STD_LOGIC;
+ 	SIGNAL load   : STD_LOGIC;
+ 	SIGNAL e      : STD_LOGIC_VECTOR(3 DOWNTO 0);
+ 	SIGNAL s      : STD_LOGIC_VECTOR(3 DOWNTO 0);
 		
 BEGIN
 
-	r0 :  reg_sync port map ( clock => clock, reset => reset, e =>  e, s => t1 );
-	r1 :  reg_sync port map ( clock => clock, reset => reset, e => t1, s => t2 );
-	r2 :  reg_sync port map ( clock => clock, reset => reset, e => t2, s => t3 );
-	r3 :  reg_sync port map ( clock => clock, reset => reset, e => t3, s => t4 );
-	r4 :  reg_sync port map ( clock => clock, reset => reset, e => t4, s => s  );
+	dut :  shift_register port map ( clock, reset, load, e, s );
 
 	PROCESS 
 	BEGIN
@@ -45,23 +39,22 @@ BEGIN
 	entree: PROCESS
 	begin
 		reset <= '1';
-	    e     <= '0';  wait for 10 ns; 
-		reset <= '0';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '1';  wait for 10 ns; 
-		e     <= '0';  wait for 10 ns; 
+		load  <= '0';
+	    e     <= "0000"; wait for 10 ns; 
+		reset <= '0';    wait for 10 ns; 
+
+		load  <= '1';
+		e     <= "0011"; wait for 10 ns; 
+		load  <= '0';    wait for 60 ns; 
+
+		load  <= '1';
+		e     <= "1111"; wait for 10 ns; 
+		load  <= '0';    wait for 60 ns; 
+
+		load  <= '1';
+		e     <= "0001"; wait for 10 ns; 
+		load  <= '0';    wait for 60 ns; 
+
 		wait;
 	end process entree;
 	
