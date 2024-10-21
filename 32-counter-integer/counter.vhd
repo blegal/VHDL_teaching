@@ -1,0 +1,32 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+ENTITY counter IS
+	PORT (
+		CLK : in  STD_LOGIC;
+		RST : in  STD_LOGIC;
+		O   : out STD_LOGIC_VECTOR( 7 DOWNTO 0)
+	);
+END counter;
+
+ARCHITECTURE Behavioral OF counter IS
+	SIGNAL COUNTER : INTEGER RANGE 0 TO 31;
+BEGIN
+	
+	PROCESS(RST, CLK)
+	BEGIN
+		IF RST = '1' THEN
+			COUNTER <= 0;
+		ELSIF CLK = '1' AND CLK'EVENT THEN
+			IF COUNTER = 31 THEN
+				COUNTER <= 0;
+			ELSE
+				COUNTER <= COUNTER + 1;
+			END IF;
+		END IF;
+	END PROCESS;
+
+	O <= STD_LOGIC_VECTOR( TO_UNSIGNED(COUNTER,8) );
+
+END Behavioral;
