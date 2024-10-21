@@ -17,18 +17,6 @@ ARCHITECTURE comportement OF testbench IS
 	);
 	END COMPONENT;
 
-	COMPONENT morse_decoder IS
-	PORT (
-		clock     : IN  STD_LOGIC;
-		reset     : IN  STD_LOGIC;
-		data_i    : IN  STD_LOGIC;
-		data_i_en : IN  STD_LOGIC;
-		data_o    : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-		data_o_en : OUT STD_LOGIC
-	);
-	END COMPONENT;
-
-
  	SIGNAL clock    : STD_LOGIC;
  	SIGNAL reset    : STD_LOGIC;
  	SIGNAL idata    : STD_LOGIC_VECTOR(7 downto 0);

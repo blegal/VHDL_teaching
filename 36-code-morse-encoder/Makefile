@@ -3,7 +3,7 @@ TARGET = testbench
 %GHDL_SIM_FLAGS= --stop-time=100ns
 %GHDL_SIM_FLAGS=
 
-VHDL_SRC      = morse_encoder.vhd morse_decoder.vhd
+VHDL_SRC      = morse_encoder.vhd
 TESTBENCH_SRC = $(TARGET).vhd
 WAVEFORMS     = $(TARGET).ghw
 GTKWAVE_CFG   = $(TARGET).gtkw
