@@ -33,16 +33,12 @@ ARCHITECTURE comportement OF testbench IS
  	SIGNAL reset    : STD_LOGIC;
  	SIGNAL idata    : STD_LOGIC_VECTOR(7 downto 0);
  	SIGNAL idata_en : STD_LOGIC;
- 	SIGNAL tdata    : STD_LOGIC;
- 	SIGNAL tdata_en : STD_LOGIC;
- 	SIGNAL odata    : STD_LOGIC_VECTOR(7 downto 0);
+ 	SIGNAL odata    : STD_LOGIC;
  	SIGNAL odata_en : STD_LOGIC;
 		
 BEGIN
 
-	enc :  morse_encoder port map ( clock, reset, idata, idata_en, tdata, tdata_en );
-
-	dec :  morse_decoder port map ( clock, reset, tdata, tdata_en, odata, odata_en );
+	enc :  morse_encoder port map ( clock, reset, idata, idata_en, odata, odata_en );
 
 	PROCESS 
 	BEGIN
@@ -77,7 +73,7 @@ BEGIN
 		--
 		idata_en <= '0';
 	    wait for 10 ns; -- temps de start
-		while tdata_en = '1' loop
+		while odata_en = '1' loop
 			wait for 10 ns;
 		end loop;
 		wait for 10 ns;
@@ -95,7 +91,7 @@ BEGIN
 		--
 		idata_en <= '0';
 	    wait for 10 ns; -- temps de start
-		while tdata_en = '1' loop
+		while odata_en = '1' loop
 			wait for 10 ns;
 		end loop;
 		wait for 10 ns;
@@ -113,7 +109,7 @@ BEGIN
 		--
 		idata_en <= '0';
 	    wait for 10 ns; -- temps de start
-		while tdata_en = '1' loop
+		while odata_en = '1' loop
 			wait for 10 ns;
 		end loop;
 		wait for 10 ns;
